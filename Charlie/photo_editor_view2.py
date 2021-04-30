@@ -18,35 +18,38 @@ class PhotoView():
         return img_path
 
     def GUI(self):
+        global update_image
         root = Tk()
         root.title("Simple Photo Editor")
         canvas = Canvas(root, width = 300, height = 300)
         canvas.pack()
         # Importing image
         img_path = self.img_finder()
-        self.model.open_img(self, img_path)
-        self.newimage=self.img
-        self.newimage.thumbnail((350, 350))
-        self.newimage = ImageTk.PhotoImage(self.newimage)
-        canvas.create_image(20,20,anchor=NW, image=self.newimage)
-        canvas.image=self.newimage
+        self.model.open_img(img_path)
+        self.model.newimage=self.model.img
+        self.model.newimage.thumbnail((350, 350))
+        update_image = ImageTk.PhotoImage(self.model.newimage)
+        canvas.create_image(0,0,anchor=NW, image=update_image)
+        canvas.image=update_image
 
         #blur code
         def events(event):
-            canvas.delete(self.newimage)
+            global update_image
+            canvas.delete(update_image)
             sliders=[var1.get(),var2.get(),var3.get(),var4.get(),var5.get(),var6.get(),var7.get()]
-            self.model.slider_values(self,sliders)
-            self.model.update_img(self)
-            self.newimage = ImageTk.PhotoImage(self.newimage)
-            canvas.create_image(20, 20, anchor=NW, image=self.newimage)
-            canvas.image=self.newimage
+            self.model.slider_values(sliders)
+            self.model.update_img()
+            update_image = ImageTk.PhotoImage(self.model.newimage)
+            canvas.create_image(0, 0, anchor=NW, image=update_image)
+            canvas.image=update_image
             
         def export():
+            global update_image
             ext = img_path.split(".")[-1]
             file=asksaveasfilename(defaultextension =f".{ext}",filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
             if file: 
-                if canvas.image==self.newimage:
-                    img2.save(file)
+                if canvas.image==update_image:
+                    self.model.newimage.save(file)
                 
         # Blur code
         var = StringVar()
@@ -109,12 +112,12 @@ class PhotoView():
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Crop
-        label=Label(root, text="Crop")
+        label = Label(root, text = "Crop (use slider after)")
         label.pack()
         var7 = StringVar()
         e1 = Entry(root, textvariable=var7)
         e1.pack()
-
+        
         # Export
         button = Button(root, text = "Export", command = export)
         button.pack(anchor = CENTER)
