@@ -18,7 +18,6 @@ class PhotoView():
         return img_path
 
     def GUI(self):
-        global self.newimage
         root = Tk()
         root.title("Simple Photo Editor")
         canvas = Canvas(root, width = 300, height = 300)
@@ -34,7 +33,6 @@ class PhotoView():
 
         #blur code
         def events(event):
-            global self.newimage
             canvas.delete(self.newimage)
             sliders=[var1.get(),var2.get(),var3.get(),var4.get(),var5.get(),var6.get(),var7.get()]
             self.model.slider_values(self,sliders)
@@ -44,7 +42,6 @@ class PhotoView():
             canvas.image=self.newimage
             
         def export():
-            global self.newimage
             ext = img_path.split(".")[-1]
             file=asksaveasfilename(defaultextension =f".{ext}",filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
             if file: 
