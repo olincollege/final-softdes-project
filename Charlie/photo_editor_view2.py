@@ -18,7 +18,7 @@ class PhotoView():
         return img_path
 
     def GUI(self):
-        global img3, img2
+        global self.newimage
         root = Tk()
         root.title("Simple Photo Editor")
         canvas = Canvas(root, width = 300, height = 300)
@@ -26,79 +26,29 @@ class PhotoView():
         # Importing image
         img_path = self.img_finder()
         self.model.open_img(self, img_path)
-        self.img.thumbnail((350, 350))
-        img3 = ImageTk.PhotoImage(self.img)
-        canvas.create_image(20,20,anchor=NW, image=img3)
-        canvas.image=img3
+        self.newimage=self.img
+        self.newimage.thumbnail((350, 350))
+        self.newimage = ImageTk.PhotoImage(self.newimage)
+        canvas.create_image(20,20,anchor=NW, image=self.newimage)
+        canvas.image=self.newimage
 
         #blur code
-        def blur(event):
-            global img3, img2
-            canvas.delete(img3)
-            img2 = self.img.filter(ImageFilter.BoxBlur(var1.get()))
-            img3 = ImageTk.PhotoImage(img2) 
-            canvas.create_image(20,20,anchor=NW, image=img3)
-            canvas.image=img3
-        def brightness(event):
-            global img3, img2
-            canvas.delete(img3)
-            imgg = ImageEnhance.Brightness(self.img)
-            img2 = imgg.enhance(var2.get())
-            img3 = ImageTk.PhotoImage(img2)
-            canvas.create_image(20, 20, anchor=NW, image=img3)
-            canvas.image=img3
-        def sharpness(event):
-            global img3, img2
-            canvas.delete(img3)
-            imgg = ImageEnhance.Sharpness(self.img)
-            img2 = imgg.enhance(var3.get())
-            img3 = ImageTk.PhotoImage(img2)
-            canvas.create_image(20, 20, anchor=NW, image=img3)
-            canvas.image=img3
-        def contrast(event):
-            global img3, img2
-            canvas.delete(img3)
-            imgg = ImageEnhance.Contrast(self.img)
-            img2 = imgg.enhance(var4.get())
-            img3 = ImageTk.PhotoImage(img2)
-            canvas.create_image(20, 20, anchor=NW, image=img3)
-            canvas.image=img3
-        def color(event):
-            global img3, img2
-            canvas.delete(img3)
-            imgg = ImageEnhance.Color(self.img)
-            img2 = imgg.enhance(var5.get())
-            img3 = ImageTk.PhotoImage(img2)
-            canvas.create_image(20, 20, anchor=NW, image=img3)
-            canvas.image=img3
-        def rotate(event):
-            global img3, img2
-            canvas.delete(img3)
-            img2=self.img.rotate(var6.get(), expand=True)
-            img3 = ImageTk.PhotoImage(img2)
-            canvas.create_image(20, 20, anchor=NW, image=img3)
-            canvas.image=img3
-        def crop():
-            global img3, img2
-            #left, upper, right, lower
-            canvas.delete(img3)
-            cropped_view=var7.get()
-            left=int(cropped_view[:2])
-            upper=int(cropped_view[3:5])
-            right=int(cropped_view[6:8])
-            lower=int(cropped_view[9:11])
-            cropped_tup=(left,upper,right,lower)
-            img2=self.img.crop(cropped_tup)
-            img3 = ImageTk.PhotoImage(img2)
-            canvas.create_image(20, 20, anchor=NW, image=img3)
-            canvas.image=img3
+        def events(event):
+            global self.newimage
+            canvas.delete(self.newimage)
+            sliders=[var1.get(),var2.get(),var3.get(),var4.get(),var5.get(),var6.get(),var7.get()]
+            self.model.slider_values(self,sliders)
+            self.model.update_img(self)
+            self.newimage = ImageTk.PhotoImage(self.newimage)
+            canvas.create_image(20, 20, anchor=NW, image=self.newimage)
+            canvas.image=self.newimage
             
         def export():
-            global img3, img2
+            global self.newimage
             ext = img_path.split(".")[-1]
             file=asksaveasfilename(defaultextension =f".{ext}",filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
             if file: 
-                if canvas.image==img3:
+                if canvas.image==self.newimage:
                     img2.save(file)
                 
         # Blur code
@@ -108,7 +58,7 @@ class PhotoView():
         label.pack()
 
         var1 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var1, orient = HORIZONTAL, command = blur)
+        scale = Scale(root, from_=1, to=10, variable = var1, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
         
         # Brightness
@@ -118,7 +68,7 @@ class PhotoView():
         label.pack()
 
         var2 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var2, orient = HORIZONTAL, command = brightness)
+        scale = Scale(root, from_=1, to=10, variable = var2, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
         
         # Sharpness
@@ -128,7 +78,7 @@ class PhotoView():
         label.pack()
 
         var3 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var3, orient = HORIZONTAL, command = sharpness)
+        scale = Scale(root, from_=1, to=10, variable = var3, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Contrast
@@ -138,7 +88,7 @@ class PhotoView():
         label.pack()
 
         var4 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var4, orient = HORIZONTAL, command = contrast)
+        scale = Scale(root, from_=1, to=10, variable = var4, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Color
@@ -148,7 +98,7 @@ class PhotoView():
         label.pack()
 
         var5 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var5, orient = HORIZONTAL, command = color)
+        scale = Scale(root, from_=1, to=10, variable = var5, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Rotate
@@ -158,7 +108,7 @@ class PhotoView():
         label.pack()
 
         var6 = DoubleVar()
-        scale = Scale(root, from_=0, to=360, variable = var6, orient = HORIZONTAL, command = rotate)
+        scale = Scale(root, from_=0, to=360, variable = var6, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Crop
@@ -167,9 +117,6 @@ class PhotoView():
         var7 = StringVar()
         e1 = Entry(root, textvariable=var7)
         e1.pack()
-        
-        button = Button(root, text = "Crop", command = crop)
-        button.pack(anchor = CENTER)
 
         # Export
         button = Button(root, text = "Export", command = export)
