@@ -1,3 +1,9 @@
+"""
+Photo editor interface. This is the view and controller combined.
+The view and controller were combined because Tkinter does not
+allow a feasible way to split the view and controller, especially
+with the current set up.
+"""
 from tkinter import * # remove and finalize at the end
 from tkinter import ttk # , Tk, Canvas, NW
 import tkinter as tk
@@ -8,16 +14,39 @@ import os
 
 class PhotoView():
 # create labels, scales and comboboxes
-    
+    """
+    Create a interface of the Photo Editor. The rest of the class
+    initializes the code's sliders for controlling blur, brightness,
+    sharpness, contrast, color, and rotation. There is a textbox 
+    to input the pixel dimensions for cropping the image. There is also
+    an export button, that allows the user to export the image.
+    """
     
     def __init__(self, model):
+        """   
+        Create a new photo model of photo main. 
+        Args:
+            model: A photo instance that is manipulated by the Tkinter and 
+            Pillow functions.
+        """
         self.model = model
 
     def img_finder(self):
+        """
+        The function will prompt user to select an image in the file dialog
+        and save it's path.
+        Returns:
+            A string that is the path of the image.
+        """
         img_path = filedialog.askopenfilename(initialdir=os.getcwd()) 
         return img_path
 
     def GUI(self):
+        """
+        This is the GUI of the photo interface. This code calls all the
+        neccessary functions for editing the image with the sliders created.
+        The code updates the canvas image in real time.
+        """
         global update_image
         root = Tk()
         root.title("Simple Photo Editor")
@@ -34,6 +63,10 @@ class PhotoView():
 
         #blur code
         def events(event):
+            """
+            Whenever an image is edited, it will trigger the event function
+            which updates the image.
+            """
             global update_image
             canvas.delete(update_image)
             sliders=[var1.get(),var2.get(),var3.get(),var4.get(),var5.get(),var6.get(),var7.get()]
@@ -44,6 +77,11 @@ class PhotoView():
             canvas.image=update_image
             
         def export():
+            """
+            The export function exports the image with it's current state.
+            It prompts the user where to save the image and under what name and 
+            file type: either all, png, or jpg.
+            """
             global update_image
             ext = img_path.split(".")[-1]
             file=asksaveasfilename(defaultextension =f".{ext}",filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
