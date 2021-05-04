@@ -55,11 +55,11 @@ class PhotoModel():
         newimage = ImageEnhance.Color(newimage)
         newimage = newimage.enhance(self.update[4])
         self.newimage = newimage.rotate(self.update[5], expand=True)
-        if len(str(self.update[6])) == 11:
-            cropped_view = self.update[6]
-            left = int(cropped_view[:2])
-            upper = int(cropped_view[3:5])
-            right = int(cropped_view[6:8])
-            lower = int(cropped_view[9:11])
-            cropped_tup = (left, upper, right, lower)
-            self.newimage = newimage.crop(cropped_tup)
+        if len(str(self.update[6]))>=7:
+            cropped_view=self.update[6].split()
+            left=int(cropped_view[0])
+            upper=int(cropped_view[1])
+            right=int(cropped_view[2])
+            lower=int(cropped_view[3])
+            cropped_tup=(left,upper,right,lower)
+            self.newimage=newimage.crop(cropped_tup)
