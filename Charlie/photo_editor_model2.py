@@ -1,11 +1,7 @@
 """
 Photo Editor model implementation
 """
-from tkinter import * # remove and finalize at the end
-from tkinter import ttk # , Tk, Canvas, NW
-from tkinter import filedialog
-from tkinter.filedialog import askopenfilename, asksaveasfilename
-from PIL import Image, ImageTk, ImageFilter, ImageEnhance, ImageOps
+from PIL import Image, ImageFilter, ImageEnhance
 
 class PhotoModel():
     """
@@ -22,14 +18,14 @@ class PhotoModel():
             newimage: the copy of img that is being displayed on the canvas.
         """
         self.img = None
-        self.update = [1, 1, 1, 1, 1, 1, 1, 1]
+        self.update = None
         self.newimage = None
 
     def open_img(self, img_path):
         """
         Open an img in Pillow
         Args:
-            img_path:a string of the img_path 
+            img_path:a string of the img_path.
         """
         self.img = Image.open(img_path)
 

@@ -10,7 +10,7 @@ def main():
     Open the photo editor
     """
     model = PhotoModel()
-    photo=PhotoView(model)
+    photo = PhotoView(model)
     photo = PhotoView(model)
     photo.GUI()
 

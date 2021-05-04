@@ -1,27 +1,28 @@
-from tkinter import * # remove and finalize at the end
-from tkinter import ttk # , Tk, Canvas, NW
-import tkinter as tk
-from tkinter import filedialog
-from tkinter.filedialog import askopenfilename,asksaveasfilename
-from PIL import Image, ImageTk, ImageFilter, ImageEnhance, ImageOps
 import os
+from tkinter import filedialog, Tk, Canvas, Button, Scale, CENTER, \
+Label, HORIZONTAL, RAISED, StringVar, DoubleVar, Entry, NW
+from tkinter.filedialog import asksaveasfilename
+from PIL import ImageTk
 
 class PhotoView():
 # create labels, scales and comboboxes
-    
-    
+
+
     def __init__(self, model):
         self.model = model
 
     def img_finder(self):
-        img_path = filedialog.askopenfilename(initialdir=os.getcwd()) 
+        img_path = filedialog.askopenfilename(initialdir=os.getcwd())
         return img_path
 
     def GUI(self):
+        global update_image
         root = Tk()
         root.title("Simple Photo Editor")
         canvas = Canvas(root, width = 300, height = 300)
+        update_image=None
         canvas.pack()
+
         # Importing image
         def import_button():
             global update_image, img_path
@@ -33,32 +34,37 @@ class PhotoView():
             canvas.create_image(0,0,anchor=NW, image=update_image)
             canvas.image=update_image
 
-        #blur code
+        # User Interaction
         def events(event):
             global update_image
-            canvas.delete(update_image)
-            sliders=[var1.get(),var2.get(),var3.get(),var4.get(),var5.get(),var6.get(),var7.get()]
-            self.model.slider_values(sliders)
-            self.model.update_img()
-            update_image = ImageTk.PhotoImage(self.model.newimage)
-            canvas.create_image(0, 0, anchor=NW, image=update_image)
-            canvas.image=update_image
-            
+            if update_image!=None:
+                canvas.delete(update_image)
+                sliders=[var1.get(),var2.get(),var3.get(),var4.get()\
+                         ,var5.get(),var6.get(),var7.get()]
+                self.model.slider_values(sliders)
+                self.model.update_img()
+                update_image = ImageTk.PhotoImage(self.model.newimage)
+                canvas.create_image(0, 0, anchor=NW, image=update_image)
+                canvas.image=update_image
+
+        # Exporting image
         def export():
             global update_image, img_path
-            ext = img_path.split(".")[-1]
-            file=asksaveasfilename(defaultextension =f".{ext}",filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
-            if file: 
-                if canvas.image==update_image:
-                    self.model.newimage.save(file)
-        
-        #Import 
+            if update_image!=None:
+                ext = img_path.split(".")[-1]
+                file=asksaveasfilename(defaultextension =f".{ext}",\
+                filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
+                if file:
+                    if canvas.image==update_image:
+                        self.model.newimage.save(file)
+
+        #Import
         button = Button(root, text = "Import", command = import_button)
         button.pack(anchor = CENTER)
         label = Label(root)
         label.pack()
 
-        # Blur 
+        # Blur
         var = StringVar()
         label = Label( root, textvariable=var, relief=RAISED )
         var.set("Set the Blur")
@@ -67,7 +73,7 @@ class PhotoView():
         var1 = DoubleVar()
         scale = Scale(root, from_=1, to=10, variable = var1, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
-        
+
         # Brightness
         var = StringVar()
         label = Label( root, textvariable=var, relief=RAISED )
@@ -77,7 +83,7 @@ class PhotoView():
         var2 = DoubleVar()
         scale = Scale(root, from_=1, to=10, variable = var2, orient = HORIZONTAL, command = events)
         scale.pack(anchor = CENTER) # this displays it to the user
-        
+
         # Sharpness
         var = StringVar()
         label = Label( root, textvariable=var, relief=RAISED )
@@ -92,7 +98,7 @@ class PhotoView():
         var = StringVar()
         label = Label( root, textvariable=var, relief=RAISED )
         var.set("Set the Contrast")
-        label.pack()
+        label.pack() # this displays it to the user
 
         var4 = DoubleVar()
         scale = Scale(root, from_=1, to=10, variable = var4, orient = HORIZONTAL, command = events)
@@ -119,16 +125,17 @@ class PhotoView():
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Crop
-        label = Label(root, text = "Crop (left top right bottom with a space \n between each and use slider after)")
+        label = Label(root, text = "Crop (left top right bottom with a space \
+        \n between each and use slider after)")
         label.pack()
         var7 = StringVar()
         e1 = Entry(root, textvariable=var7)
-        e1.pack()
-        
+        e1.pack() # this displays it to the user
+
         # Export
         button = Button(root, text = "Export", command = export)
         button.pack(anchor = CENTER)
         label = Label(root)
-        label.pack()
+        label.pack() # this displays it to the user
 
         root.mainloop()
