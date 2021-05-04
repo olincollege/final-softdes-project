@@ -4,7 +4,7 @@ Charlie and Arnav's Final Softdes Project: Photo editing
 ## Installation Instructions
 [Tkinter Documentation](https://docs.python.org/3/library/tkinter.html)\
 Downloading Tkinter:\
-`pip install tk`\
+`pip install tk`
 
 [Photo Image Library (PIL) Documentation](https://pypi.org/project/Pillow/)\
 Downloading PIL:\
