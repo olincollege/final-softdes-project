@@ -1,37 +1,32 @@
-## Welcome to GitHub Pages
+## Photo Editor
+Charlie and Arnav's Final Softdes Project: Photo editing
 
-You can use the [editor on GitHub](https://github.com/olincollege/photo-editor/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+The Photo Editor we designed allows users to import a photo do modifications and then upload the updated image.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+![Photo Editor](C:\Users\cbabe\Pictures "Photo Editor")
 
-### Markdown
+## GitHub Link
+[link to GitHub repository](https://github.com/olincollege/photo-editor)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Installation Instructions
+[Tkinter Documentation](https://docs.python.org/3/library/tkinter.html)\
+Downloading Tkinter:\
+`pip install tk`
 
-```markdown
-Syntax highlighted code block
+[Photo Image Library (PIL) Documentation](https://pypi.org/project/Pillow/)\
+Downloading PIL:\
+`pip install Pillow`
 
-# Header 1
-## Header 2
-### Header 3
+## Running Photo Editor
+To run the photo editor type `python Main.py` in terminal.
 
-- Bulleted
-- List
+## Structure
 
-1. Numbered
-2. List
+Photo Editor is composed of three files `Main.py`, `photo_editor_model2.py`, and `photo_editor_view2.py` and is made in Model View and Control format. The file `photo_editor_view2.py` contains both the View and the Control since by using Tkinter they can not be separated. `photo_editor_model2.py` contains the Model and `Main.py` runs the photo editor.
 
-**Bold** and _Italic_ and `Code` text
+## About the Authors
+Charlie: An Olin student.
+Arnav: An Olin Student.
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/olincollege/photo-editor/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Sources
+[Example we used](https://www.codershubb.com/build-a-simple-photo-editor-app-using-python/)
