@@ -112,8 +112,9 @@ class PhotoInterface():
         label.config(font=("Times New Roman", 12))
         label.pack()
         var1 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var1, orient = HORIZONTAL, command = events \
+        scale = Scale(root, from_=0, to=10, variable = var1, orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
+        scale.set(1)
         scale.pack(anchor = CENTER)
         label.config(font=("Times New Roman", 12))
         # Brightness
@@ -123,8 +124,9 @@ class PhotoInterface():
         label.pack()
         label.config(font=("Times New Roman", 12))
         var2 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var2, orient = HORIZONTAL, command = events \
+        scale = Scale(root, from_=0, to=10, variable = var2, orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
+        scale.set(1)
         scale.pack(anchor = CENTER)
 
         # Sharpness
@@ -135,8 +137,9 @@ class PhotoInterface():
         label.config(font=("Times New Roman", 12))
         
         var3 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var3, orient = HORIZONTAL, command = events \
+        scale = Scale(root, from_=0, to=10, variable = var3, orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
+        scale.set(1)
         scale.pack(anchor = CENTER)
 
         # Contrast
@@ -146,8 +149,9 @@ class PhotoInterface():
         label.pack()
         label.config(font=("Times New Roman", 12))
         var4 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var4, orient = HORIZONTAL, command = events \
+        scale = Scale(root, from_=0, to=10, variable = var4, orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
+        scale.set(1)
         scale.pack(anchor = CENTER)
 
         # Color
@@ -157,8 +161,9 @@ class PhotoInterface():
         label.pack()
         label.config(font=("Times New Roman", 12))
         var5 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var5, orient = HORIZONTAL, command = events \
+        scale = Scale(root, from_=0, to=10, variable = var5, orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
+        scale.set(1)
         scale.pack(anchor = CENTER)
 
         # Rotate
