@@ -27,25 +27,13 @@ class PhotoInterface():
         """
         self.model = model
 
-    def img_finder(self):
-        """
-        Asks the user to select an image in their file system and gets the
-        relative path.
-
-        Returns:
-            IMG_PATH_string: A string of the path of where the image is
-            located.
-        """
-        img_path_string = filedialog.askopenfilename(initialdir=os.getcwd())
-        return img_path_string
-
     def gui(self):
         """
         The GUI code for the code. Displays the Photo, scales, and buttons.
         """
         global UPDATE_IMAGE
         root = Tk()
-        root.title("Simple Photo Editor")
+        root.title("Photo Editor")
         canvas = Canvas(root, width = 300, height = 300, bg = '#666666')
         UPDATE_IMAGE=None
         canvas.pack()
@@ -57,7 +45,7 @@ class PhotoInterface():
             importing an image and placing it on the display.
             """
             global UPDATE_IMAGE, IMG_PATH
-            IMG_PATH = self.img_finder()
+            IMG_PATH = img_finder()
             self.model.open_img(IMG_PATH)
             self.model.newimage=self.model.img
             self.model.newimage.thumbnail((350, 350))
@@ -133,7 +121,7 @@ class PhotoInterface():
         var.set("Set the Sharpness")
         label.pack()
         label.config(font=("Times New Roman", 12))
-        
+
         var3 = DoubleVar()
         scale = Scale(root, from_=1, to=10, variable = var3, orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
@@ -186,5 +174,17 @@ class PhotoInterface():
         label = Label(root)
         label.pack()
         label.config(font=("Times New Roman", 12))
-        
+
         root.mainloop()
+
+def img_finder():
+    """
+    Asks the user to select an image in their file system and gets the
+    relative path.
+
+    Returns:
+        IMG_PATH_string: A string of the path of where the image is
+        located.
+    """
+    img_path_string = filedialog.askopenfilename(initialdir=os.getcwd())
+    return img_path_string
