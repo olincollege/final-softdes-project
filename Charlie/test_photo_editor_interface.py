@@ -8,7 +8,5 @@ Label, HORIZONTAL, StringVar, DoubleVar, Entry, NW
 from tkinter.filedialog import asksaveasfilename
 from PIL import ImageTk
 
-from photo_editor_interface import 
-
-@pytest.mark.parametrize("func", [])
+from photo_editor_interface import PhotoInterface
 
