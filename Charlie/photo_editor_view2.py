@@ -71,7 +71,8 @@ class PhotoView():
         label.pack()
 
         var1 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var1, orient = HORIZONTAL, command = events)
+        scale = Scale(root, from_=0, to=10, variable = var1, orient = HORIZONTAL, command = events)
+        scale.set(1)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Brightness
@@ -81,7 +82,8 @@ class PhotoView():
         label.pack()
 
         var2 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var2, orient = HORIZONTAL, command = events)
+        scale = Scale(root, from_=0, to=10, variable = var2, orient = HORIZONTAL, command = events)
+        scale.set(1)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Sharpness
@@ -91,7 +93,8 @@ class PhotoView():
         label.pack()
 
         var3 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var3, orient = HORIZONTAL, command = events)
+        scale = Scale(root, from_=0, to=10, variable = var3, orient = HORIZONTAL, command = events)
+        scale.set(1)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Contrast
@@ -101,7 +104,8 @@ class PhotoView():
         label.pack() # this displays it to the user
 
         var4 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var4, orient = HORIZONTAL, command = events)
+        scale = Scale(root, from_=0, to=10, variable = var4, orient = HORIZONTAL, command = events)
+        scale.set(1)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Color
@@ -111,7 +115,8 @@ class PhotoView():
         label.pack()
 
         var5 = DoubleVar()
-        scale = Scale(root, from_=1, to=10, variable = var5, orient = HORIZONTAL, command = events)
+        scale = Scale(root, from_=0, to=10, variable = var5, orient = HORIZONTAL, command = events)
+        scale.set(1)
         scale.pack(anchor = CENTER) # this displays it to the user
 
         # Rotate
