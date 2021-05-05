@@ -5,7 +5,7 @@ from PIL import Image, ImageFilter, ImageEnhance
 
 class PhotoModel():
     """
-    Photo editor with basic functionality
+    Photo editor model stores, opens, and updates the photo.
     """
 
     def __init__(self):
