@@ -26,16 +26,18 @@ class PhotoInterface():
             on the GUI being edited.
         """
         self.model = model
+        self.update_image=None
+        self.image_path=None
+        self._img_path_string=None
+
 
     def gui(self):
         """
         The GUI code for the code. Displays the Photo, scales, and buttons.
         """
-        global UPDATE_IMAGE
         root = Tk()
         root.title("Photo Editor")
         canvas = Canvas(root, width = 300, height = 300, bg = '#666666')
-        UPDATE_IMAGE=None
         canvas.pack()
         root['background']='#666666'
         # Importing image
@@ -44,14 +46,13 @@ class PhotoInterface():
             This function runs when the import button is clicked,
             importing an image and placing it on the display.
             """
-            global UPDATE_IMAGE, IMG_PATH
-            IMG_PATH = img_finder()
-            self.model.open_img(IMG_PATH)
+            self.image_path = self.img_finder()
+            self.model.open_img(self.image_path)
             self.model.newimage=self.model.img
             self.model.newimage.thumbnail((350, 350))
-            UPDATE_IMAGE = ImageTk.PhotoImage(self.model.newimage)
-            canvas.create_image(0,0,anchor=NW, image=UPDATE_IMAGE)
-            canvas.image=UPDATE_IMAGE
+            self.update_image = ImageTk.PhotoImage(self.model.newimage)
+            canvas.create_image(0,0,anchor=NW, image=self.update_image)
+            canvas.image=self.update_image
 
         # User Interaction
         def events(event):
@@ -59,16 +60,16 @@ class PhotoInterface():
             This method runs when any of the scales are adjusted. It
             updates the image onto the display in realtime.
             """
-            global UPDATE_IMAGE
-            if UPDATE_IMAGE is not None or int(event) > 10000:
-                canvas.delete(UPDATE_IMAGE)
-                sliders=[var1.get(),var2.get(),var3.get(),var4.get()\
-                         ,var5.get(),var6.get(),var7.get()]
+            if self.update_image is not None or int(event) > 10000:
+                canvas.delete(self.update_image)
+                sliders=[]
+                for slider in slider_update:
+                    sliders.append(slider.get())
                 self.model.slider_values(sliders)
                 self.model.update_img()
-                UPDATE_IMAGE = ImageTk.PhotoImage(self.model.newimage)
-                canvas.create_image(0, 0, anchor=NW, image=UPDATE_IMAGE)
-                canvas.image=UPDATE_IMAGE
+                self.update_image = ImageTk.PhotoImage(self.model.newimage)
+                canvas.create_image(0, 0, anchor=NW, image=self.update_image)
+                canvas.image=self.update_image
 
         # Exporting image
         def export():
@@ -77,15 +78,14 @@ class PhotoInterface():
             exporting the image with all the edits and prompts the user to
             enter the file name and where to place it.
             """
-            global UPDATE_IMAGE, IMG_PATH
-            if UPDATE_IMAGE is not None:
-                ext = IMG_PATH.split(".")[-1]
+            if self.update_image is not None:
+                ext = self.image_path.split(".")[-1]
                 file=asksaveasfilename(defaultextension =f".{ext}",\
                 filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
                 if file:
-                    if canvas.image==UPDATE_IMAGE:
+                    if canvas.image==self.update_image:
                         self.model.newimage.save(file)
-
+        slider_update=[]
         #Import
         button = Button(root, text = "Import an Image", command = import_button \
                        , bg='#555555', fg='#f8f8ff', relief="groove")
@@ -99,20 +99,23 @@ class PhotoInterface():
         var.set("Set the Blur")
         label.config(font=("Times New Roman", 12))
         label.pack()
-        var1 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var1, orient = HORIZONTAL, command = events \
+        slider_update.append(DoubleVar())
+        scale = Scale(root, from_=0, to=10, variable = slider_update[0], \
+                      orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.set(1)
+        scale.set(0)
         scale.pack(anchor = CENTER)
         label.config(font=("Times New Roman", 12))
         # Brightness
         var = StringVar()
-        label = Label( root, textvariable=var, relief="groove", bg='#555555', fg='#f8f8ff' )
+        label = Label( root, textvariable=var, relief="groove", \
+                      bg='#555555', fg='#f8f8ff')
         var.set("Set the Brightness")
         label.pack()
         label.config(font=("Times New Roman", 12))
-        var2 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var2, orient = HORIZONTAL, command = events \
+        slider_update.append(DoubleVar())
+        scale = Scale(root, from_=0, to=10, variable = slider_update[1], \
+                      orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
         scale.set(1)
         scale.pack(anchor = CENTER)
@@ -124,8 +127,9 @@ class PhotoInterface():
         label.pack()
         label.config(font=("Times New Roman", 12))
 
-        var3 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var3, orient = HORIZONTAL, command = events \
+        slider_update.append(DoubleVar())
+        scale = Scale(root, from_=0, to=10, variable = slider_update[2], \
+                      orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
         scale.set(1)
         scale.pack(anchor = CENTER)
@@ -136,8 +140,9 @@ class PhotoInterface():
         var.set("Set the Contrast")
         label.pack()
         label.config(font=("Times New Roman", 12))
-        var4 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var4, orient = HORIZONTAL, command = events \
+        slider_update.append(DoubleVar())
+        scale = Scale(root, from_=0, to=10, variable = slider_update[3], \
+                      orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
         scale.set(1)
         scale.pack(anchor = CENTER)
@@ -148,8 +153,9 @@ class PhotoInterface():
         var.set("Set the Color")
         label.pack()
         label.config(font=("Times New Roman", 12))
-        var5 = DoubleVar()
-        scale = Scale(root, from_=0, to=10, variable = var5, orient = HORIZONTAL, command = events \
+        slider_update.append(DoubleVar())
+        scale = Scale(root, from_=0, to=10, variable = slider_update[4], \
+                      orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
         scale.set(1)
         scale.pack(anchor = CENTER)
@@ -160,8 +166,9 @@ class PhotoInterface():
         var.set("Set the Rotate")
         label.pack()
         label.config(font=("Times New Roman", 12))
-        var6 = DoubleVar()
-        scale = Scale(root, from_=0, to=360, variable = var6,orient = HORIZONTAL, command = events \
+        slider_update.append(DoubleVar())
+        scale = Scale(root, from_=0, to=360, variable = slider_update[5],\
+                      orient = HORIZONTAL, command = events \
                      , bg='#555555', fg='#f8f8ff', relief="groove")
         scale.pack(anchor = CENTER)
 
@@ -169,8 +176,9 @@ class PhotoInterface():
         label = Label(root, text = "Crop (left top right bottom with a space \
         \n between each and use slider after)", justify=CENTER, bg='#555555', fg='#f8f8ff')
         label.pack()
-        var7 = StringVar()
-        crop1 = Entry(root, textvariable=var7, bg='#555555', fg='#f8f8ff', relief="groove")
+        slider_update.append(StringVar())
+        crop1 = Entry(root, textvariable=slider_update[6], bg='#555555', \
+                      fg='#f8f8ff', relief="groove")
         crop1.pack()
         label.config(font=("Times New Roman", 12))
         # Export
@@ -182,14 +190,14 @@ class PhotoInterface():
 
         root.mainloop()
 
-def img_finder():
-    """
-    Asks the user to select an image in their file system and gets the
-    relative path.
+    def img_finder(self):
+        """
+        Asks the user to select an image in their file system and gets the
+        relative path.
 
-    Returns:
-        IMG_PATH_string: A string of the path of where the image is
-        located.
-    """
-    img_path_string = filedialog.askopenfilename(initialdir=os.getcwd())
-    return img_path_string
+        Returns:
+            IMG_PATH_string: A string of the path of where the image is
+            located.
+        """
+        self._img_path_string = filedialog.askopenfilename(initialdir=os.getcwd())
+        return self._img_path_string
