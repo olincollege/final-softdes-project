@@ -18,7 +18,7 @@ class PhotoModel():
             newimage: the copy of img that is being displayed on the canvas.
         """
         self.img = None
-        self.update = None
+        self.update_slider = None
         self.newimage = None
 
     def open_img(self, img_path):
@@ -33,25 +33,25 @@ class PhotoModel():
         """
         A list of the slider values being updated
         """
-        self.update = slider_values
+        self.update_slider = slider_values
 
     def update_img(self):
         """
         This function updates the image everytime one of the sliders are
         manipulated.
         """
-        self.newimage = self.img.filter(ImageFilter.BoxBlur(self.update[0]))
+        self.newimage = self.img.filter(ImageFilter.BoxBlur(self.update_slider[0]))
         newimage = self.newimage
         newimage = ImageEnhance.Brightness(self.newimage)
-        newimage = newimage.enhance(self.update[1])
+        newimage = newimage.enhance(self.update_slider[1])
         newimage = ImageEnhance.Sharpness(newimage)
-        newimage = newimage.enhance(self.update[2])
+        newimage = newimage.enhance(self.update_slider[2])
         newimage = ImageEnhance.Contrast(newimage)
-        newimage = newimage.enhance(self.update[3])
+        newimage = newimage.enhance(self.update_slider[3])
         newimage = ImageEnhance.Color(newimage)
-        newimage = newimage.enhance(self.update[4])
-        self.newimage = newimage.rotate(self.update[5], expand=True)
-        cropped_view=self.update[6].split()
+        newimage = newimage.enhance(self.update_slider[4])
+        self.newimage = newimage.rotate(self.update_slider[5], expand=True)
+        cropped_view=self.update_slider[6].split()
         if len(cropped_view)==4:
             left=int(cropped_view[0])
             upper=int(cropped_view[1])

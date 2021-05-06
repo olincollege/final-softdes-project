@@ -20,7 +20,7 @@ def test_slider_values():
     """
     new_photo_model=PhotoModel()
     new_photo_model.slider_values([1,2,3,4,5,6,7])
-    assert [1,2,3,4,5,6,7] == new_photo_model.update
+    assert [1,2,3,4,5,6,7] == new_photo_model.update_slider
 
 update_test=[[[0,1,1,1,1,0,""],True],[[1,1,1,1,1,0,""],False],\
              [[0,2,1,1,1,0,""],False],[[0,1,2,1,1,0,""],False],\

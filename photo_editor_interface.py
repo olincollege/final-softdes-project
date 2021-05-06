@@ -55,12 +55,17 @@ class PhotoInterface():
             canvas.image=self.update_image
 
         # User Interaction
-        def events(event):
+        def user_interaction(current_state):
             """
             This method runs when any of the scales are adjusted. It
             updates the image onto the display in realtime.
+
+            Args:
+                current_state: An interger representing the current
+                value of the slider that had been changed.
             """
-            if self.update_image is not None or int(event) > 10000:
+
+            if self.update_image is not None or int(current_state) > 10000:
                 canvas.delete(self.update_image)
                 sliders=[]
                 for slider in slider_update:
@@ -78,115 +83,47 @@ class PhotoInterface():
             exporting the image with all the edits and prompts the user to
             enter the file name and where to place it.
             """
+            ext=self.image_path.split(".")[-1]
             if self.update_image is not None:
-                ext = self.image_path.split(".")[-1]
                 file=asksaveasfilename(defaultextension =f".{ext}",\
                 filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
-                if file:
-                    if canvas.image==self.update_image:
-                        self.model.newimage.save(file)
-        slider_update=[]
+                self.model.newimage.save(file)
         #Import
         button = Button(root, text = "Import an Image", command = import_button \
                        , bg='#555555', fg='#f8f8ff', relief="groove")
         button.pack(anchor = CENTER)
         label = Label(root)
         label.pack()
-        label.config(font=("Times New Roman", 12))
-        # Blur
-        var = StringVar()
-        label = Label(root, textvariable=var, relief="groove", bg='#555555', fg='#f8f8ff' )
-        var.set("Set the Blur")
-        label.config(font=("Times New Roman", 12))
-        label.pack()
-        slider_update.append(DoubleVar())
-        scale = Scale(root, from_=0, to=10, variable = slider_update[0], \
-                      orient = HORIZONTAL, command = events \
-                     , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.set(0)
-        scale.pack(anchor = CENTER)
-        label.config(font=("Times New Roman", 12))
-        # Brightness
-        var = StringVar()
-        label = Label( root, textvariable=var, relief="groove", \
-                      bg='#555555', fg='#f8f8ff')
-        var.set("Set the Brightness")
-        label.pack()
-        label.config(font=("Times New Roman", 12))
-        slider_update.append(DoubleVar())
-        scale = Scale(root, from_=0, to=10, variable = slider_update[1], \
-                      orient = HORIZONTAL, command = events \
-                     , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.set(1)
-        scale.pack(anchor = CENTER)
-
-        # Sharpness
-        var = StringVar()
-        label = Label( root, textvariable=var, relief="groove", bg='#555555', fg='#f8f8ff' )
-        var.set("Set the Sharpness")
-        label.pack()
-        label.config(font=("Times New Roman", 12))
-
-        slider_update.append(DoubleVar())
-        scale = Scale(root, from_=0, to=10, variable = slider_update[2], \
-                      orient = HORIZONTAL, command = events \
-                     , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.set(1)
-        scale.pack(anchor = CENTER)
-
-        # Contrast
-        var = StringVar()
-        label = Label( root, textvariable=var, relief="groove", bg='#555555', fg='#f8f8ff' )
-        var.set("Set the Contrast")
-        label.pack()
-        label.config(font=("Times New Roman", 12))
-        slider_update.append(DoubleVar())
-        scale = Scale(root, from_=0, to=10, variable = slider_update[3], \
-                      orient = HORIZONTAL, command = events \
-                     , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.set(1)
-        scale.pack(anchor = CENTER)
-
-        # Color
-        var = StringVar()
-        label = Label( root, textvariable=var, relief="groove", bg='#555555', fg='#f8f8ff')
-        var.set("Set the Color")
-        label.pack()
-        label.config(font=("Times New Roman", 12))
-        slider_update.append(DoubleVar())
-        scale = Scale(root, from_=0, to=10, variable = slider_update[4], \
-                      orient = HORIZONTAL, command = events \
-                     , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.set(1)
-        scale.pack(anchor = CENTER)
-
-        # Rotate
-        var = StringVar()
-        label = Label( root, textvariable=var, relief="groove", bg='#555555', fg='#f8f8ff')
-        var.set("Set the Rotate")
-        label.pack()
-        label.config(font=("Times New Roman", 12))
-        slider_update.append(DoubleVar())
-        scale = Scale(root, from_=0, to=360, variable = slider_update[5],\
-                      orient = HORIZONTAL, command = events \
-                     , bg='#555555', fg='#f8f8ff', relief="groove")
-        scale.pack(anchor = CENTER)
-
+        #label.config(font=("Times New Roman", 12))
+        sliders=[["Blur",0,10],["Brightness",1,10],["Sharpness",1,10],\
+                 ["Contrast",1,10],["Color",1,10],["Rotate",0,360]]
+        slider_update=[]
+        for count, slider in enumerate(sliders):
+            label = Label(root, text=f"Set the {slider[0]}",\
+                          relief="groove", bg='#555555', fg='#f8f8ff' )
+            #label.config(font=("Times New Roman", 12))
+            label.pack()
+            slider_update.append(DoubleVar())
+            scale = Scale(root, from_=0, to=slider[2], variable = slider_update[count], \
+                          orient = HORIZONTAL, command = user_interaction \
+                         , bg='#555555', fg='#f8f8ff', relief="groove")
+            scale.set(slider[1])
+            scale.pack(anchor = CENTER)
         # Crop
-        label = Label(root, text = "Crop (left top right bottom with a space \
-        \n between each and use slider after)", justify=CENTER, bg='#555555', fg='#f8f8ff')
+        label = (Label(root, text = "Crop (left top right bottom with a space \
+        \n between each and use slider after)", justify=CENTER, bg='#555555', fg='#f8f8ff'))
         label.pack()
         slider_update.append(StringVar())
         crop1 = Entry(root, textvariable=slider_update[6], bg='#555555', \
                       fg='#f8f8ff', relief="groove")
         crop1.pack()
-        label.config(font=("Times New Roman", 12))
+        #label.config(font=("Times New Roman", 12))
         # Export
         button = Button(root, text = "Export", command = export, bg='#555555', fg='#f8f8ff')
         button.pack(anchor = CENTER)
         label = Label(root)
         label.pack()
-        label.config(font=("Times New Roman", 12))
+        #label.config(font=("Times New Roman", 12))
 
         root.mainloop()
 
@@ -196,7 +133,7 @@ class PhotoInterface():
         relative path.
 
         Returns:
-            IMG_PATH_string: A string of the path of where the image is
+            A string of the path of where the image is
             located.
         """
         self._img_path_string = filedialog.askopenfilename(initialdir=os.getcwd())
