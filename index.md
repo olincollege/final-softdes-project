@@ -1,5 +1,5 @@
 # Photo-Editing
-Charlie and Arnav's Photo-Editing Project
+Charlie and Arnav's Photo-Editing Project\
 <img width="113" alt="Photo Editor" src="https://user-images.githubusercontent.com/78317842/117474351-d6aac300-af28-11eb-8f39-dbdc71cfcb1a.png">
 
 ## Summary
@@ -28,8 +28,8 @@ Photo Editor is composed of three files `photo_editor_main.py`, `photo_editor_in
 [link to GitHub repository](https://github.com/olincollege/photo-editor)
 
 ## About the Authors
+Arnav: An Olin Student. [Arnav's GitHub Profile](https://github.com/arnavgupta19)\
 Charlie: An Olin student. [Charlie's GitHub Profile](https://github.com/Cbabe)
-Arnav: An Olin Student. [Arnav's GitHub Profile](https://github.com/arnavgupta19)
 
 ## Sources
-[Example we used](https://www.codershubb.com/build-a-simple-photo-editor-app-using-python/)
+[An example photo editor that inspired us!](https://www.codershubb.com/build-a-simple-photo-editor-app-using-python/)
