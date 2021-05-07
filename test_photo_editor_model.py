@@ -21,7 +21,8 @@ update_test=[[[0,1,1,1,1,0,""],True],[[1,1,1,1,1,0,""],False],\
              [[0,2,1,1,1,0,""],False],[[0,1,2,1,1,0,""],False],\
              [[0,1,1,2,1,0,""],False],[[0,1,1,1,2,0,""],False],\
              [[0,1,1,1,1,1,""],False],[[0,1,1,1,1,0,"4 4 100 100"],False],\
-             [[0,1,1,1,1,0,"        "],True]]
+             [[0,1,1,1,1,0,"        "],True],[[0.5,1,1,1,1,0,""],False],\
+             [[0.5,6,100,-1,5,-0.6,""],False]]
 def test_update_img():
     """
     Tests changes to each of the slider and crop inputs to determine if
