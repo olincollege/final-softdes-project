@@ -14,7 +14,20 @@ from PIL import ImageTk
 
 class PhotoInterface():
     """
-    This is the Photo Interface Class
+    This is the Photo Interface Class.
+
+    Attributes:
+        model: An instance of the model class of the photo editor.
+        update_image: Current image being displayed.
+        image_path: The path to the image represented by a string.
+        _img_path_string: The path to the image represented by a string.
+
+    Methods:
+        __init__: Create a new model for the photo editor,
+        and stores the slider state and path to image.
+        gui: The GUI code for the code. Displays the Photo, scales, and buttons.
+        img_finder: Asks the user to select an image in their file system and gets the
+        relative path.
     """
 
     def __init__(self, model):
@@ -58,11 +71,12 @@ class PhotoInterface():
         def user_interaction(current_state):
             """
             This method runs when any of the scales are adjusted. It
-            updates the image onto the display in realtime.
+            updates the image onto the display in real time.
 
             Args:
-                current_state: An interger representing the current
+                current_state: An integer representing the current
                 value of the slider that had been changed.
+
             """
 
             if self.update_image is not None or int(current_state) > 10000:

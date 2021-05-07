@@ -15,7 +15,7 @@ Downloading pytest:\
 `pip install -U pytest`
 
 ## Running Photo Editor
-To run the photo editor type `python photo_editor_main.py` in terminal. The file `test_image.jpg` is used for testing purposes using pytest and it's path is hard coded into `test_photo_editor_model`.
+To run the photo editor type `python photo_editor_main.py` in the terminal. The file `test_image.jpg` is used for testing purposes through pytest and it's path is hard coded into `test_photo_editor_model`.
 
 ## Structure
 
