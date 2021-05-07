@@ -1,8 +1,9 @@
 # Photo-Editing
-Charlie and Arnav's Final Softdes Project: Photo editing
+Charlie and Arnav's Photo Editing Project\
+[Our Photo Editing Program Website!](https://olincollege.github.io/photo-editor/)
 
 ## Summary
-We created a photo editing suit that allows users to upload a photo, edit it, then download the edited image. When the user runs the photo editor it creates a pop up and in it the current image being edited is displayed. The user can edit the image by changing the blur, brightness, sharpness, contrast, color, rotation and crop size. The user applies edits to the image by moving sliders or in the case of cropping entering the crop size in a text box. The user uploads and downloads images by pressing buttons which prompt the user to provide the image path and in addition for downloads the name of the new image and image type.
+We created a photo editing program that allows users to upload a photo, edit it, then download the edited image. When the user runs the photo editor it creates a pop up and in it the current image being edited is displayed. The user can edit the image by changing the blur, brightness, sharpness, contrast, color, rotation and crop size. The user applies edits to the image by moving sliders or in the case of cropping entering the crop size in a text box. The user uploads and downloads images by pressing buttons which prompt the user to provide the image path and in addition for downloads the name of the new image and image type.
 
 ## Installation Instructions
 [Tkinter Documentation](https://docs.python.org/3/library/tkinter.html)\
