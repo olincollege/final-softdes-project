@@ -9,40 +9,33 @@ class PhotoModel():
 
     Attributes:
         img: original img opened from path in Pillow.
-        update: a list of integers for editing the image based on
+        update_slider: a list of integers for editing the image based on
         its index.
         newimage: the copy of img that is being displayed on the canvas.
 
     Methods:
+        __init__: Initialize attributes for editing images.
         open_img: Open an img in Pillow.
-        slider_values: A list of the slider values being updated.
         update_img: Updates the image everytime one of the sliders are
         manipulated.
     """
 
     def __init__(self):
         """
-        Initialize attributes for editing images
+        Initialize attributes for editing images.
         """
         self.img = None
-        self.update_slider = None
+        self.update_slider = []
         self.newimage = None
 
     def open_img(self, img_path):
         """
-        Open an img in Pillow
+        Open an img in Pillow.
 
         Args:
             img_path:a string of the img_path.
         """
         self.img = Image.open(img_path)
-
-    def slider_values(self, slider_values):
-        """
-        A list of the slider values being updated
-        """
-        self.update_slider = slider_values
-
     def update_img(self):
         """
         Updates the image everytime one of the sliders are

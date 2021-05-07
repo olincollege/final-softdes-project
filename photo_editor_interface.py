@@ -84,7 +84,7 @@ class PhotoInterface():
                 sliders=[]
                 for slider in slider_update:
                     sliders.append(slider.get())
-                self.model.slider_values(sliders)
+                self.model.update_slider=sliders
                 self.model.update_img()
                 self.update_image = ImageTk.PhotoImage(self.model.newimage)
                 canvas.create_image(0, 0, anchor=NW, image=self.update_image)
@@ -95,27 +95,26 @@ class PhotoInterface():
             """
             This function runs when the export button is clicked,
             exporting the image with all the edits and prompts the user to
-            enter the file name and where to place it.
+            enter the file name, file type, and where to place it.
             """
             ext=self.image_path.split(".")[-1]
             if self.update_image is not None:
                 file=asksaveasfilename(defaultextension =f".{ext}",\
                 filetypes=[("All Files","*.*"),("PNG file","*.png"),("jpg file","*.jpg")])
                 self.model.newimage.save(file)
-        #Import
+        # Import
         button = Button(root, text = "Import an Image", command = import_button \
                        , bg='#555555', fg='#f8f8ff', relief="groove")
         button.pack(anchor = CENTER)
         label = Label(root)
         label.pack()
-        #label.config(font=("Times New Roman", 12))
+        # Sliders
         sliders=[["Blur",0,10],["Brightness",1,10],["Sharpness",1,10],\
                  ["Contrast",1,10],["Color",1,10],["Rotate",0,360]]
         slider_update=[]
         for count, slider in enumerate(sliders):
             label = Label(root, text=f"Set the {slider[0]}",\
                           relief="groove", bg='#555555', fg='#f8f8ff' )
-            #label.config(font=("Times New Roman", 12))
             label.pack()
             slider_update.append(DoubleVar())
             scale = Scale(root, from_=0, to=slider[2], variable = slider_update[count], \
@@ -131,13 +130,11 @@ class PhotoInterface():
         crop1 = Entry(root, textvariable=slider_update[6], bg='#555555', \
                       fg='#f8f8ff', relief="groove")
         crop1.pack()
-        #label.config(font=("Times New Roman", 12))
         # Export
         button = Button(root, text = "Export", command = export, bg='#555555', fg='#f8f8ff')
         button.pack(anchor = CENTER)
         label = Label(root)
         label.pack()
-        #label.config(font=("Times New Roman", 12))
 
         root.mainloop()
 
