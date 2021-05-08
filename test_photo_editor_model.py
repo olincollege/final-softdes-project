@@ -1,10 +1,18 @@
 """
 Unit tests for photo editor interface.
+
+We could only unit test our model based on the code structure.
+We can't test our interface functions since all of them would be GUI.
+Testing user interaction would not be possible because the interface is GUI
+based and cannot be tested through the structure of pytest.
+For example testing user interaction testing our export and
+import would create a file dialog popup and while it returns
+a string we can not put any inputs into the function.
 """
 from PIL import Image, ImageChops
 from photo_editor_model import PhotoModel
 
-#Hard coded image path used for testing functionality
+# Hard coded image path used for testing functionality
 test_image=Image.open("test_image.jpg")
 
 def test_open_image():
@@ -15,8 +23,8 @@ def test_open_image():
     new_photo_model.open_img("test_image.jpg")
     assert new_photo_model.img==test_image
 
-#update_test is in the form, 
-#[[[Slider values],Is the new image the same as the original], [Next test case]]
+# update_test is in the form,
+# [[[Slider values],Is the new image the same as the original], [Next test case]]
 update_test=[[[0,1,1,1,1,0,""],True],[[1,1,1,1,1,0,""],False],\
              [[0,2,1,1,1,0,""],False],[[0,1,2,1,1,0,""],False],\
              [[0,1,1,2,1,0,""],False],[[0,1,1,1,2,0,""],False],\
@@ -35,5 +43,7 @@ def test_update_img():
     for slider_test in update_test:
         new_photo_model.update_slider=slider_test[0]
         new_photo_model.update_img()
+        # Checks if the images are different,
+        # ImageChops.difference is None if the images are the same.
         same_image=ImageChops.difference(new_photo_model.newimage, test_image).getbbox() is None
         assert same_image==slider_test[1]

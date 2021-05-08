@@ -33,13 +33,14 @@ class PhotoModel():
         Open an img in Pillow.
 
         Args:
-            img_path:a string of the img_path.
+            img_path:a string of the image path.
         """
         self.img = Image.open(img_path)
     def update_img(self):
         """
         Updates the image everytime one of the sliders are
-        manipulated.
+        manipulated. Reapplies all editing to the original image
+        in a consistent order of edits.
         """
         self.newimage = self.img.filter(ImageFilter.BoxBlur(self.update_slider[0]))
         self.newimage = ImageEnhance.Brightness(self.newimage)

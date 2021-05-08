@@ -20,7 +20,7 @@ class PhotoInterface():
         model: An instance of the model class of the photo editor.
         update_image: Current image being displayed.
         image_path: The path to the image represented by a string.
-        _img_path_string: The path to the image represented by a string.
+        _img_path_string: The private path to the image represented by a string.
 
     Methods:
         __init__: Create a new model for the photo editor,
@@ -29,14 +29,14 @@ class PhotoInterface():
         img_finder: Asks the user to select an image in their file system and gets the
         relative path.
     """
-
     def __init__(self, model):
         """
         Create a new model for the photo editor.
 
         Args:
-            model: A photo editor model instance representing the photo
-            on the GUI being edited.
+            model: A photo editor model instance that contain the photo
+            on the GUI being edited and the orginal photo as well as methods
+            to open and edit the original photo.
         """
         self.model = model
         self.update_image=None
@@ -46,7 +46,7 @@ class PhotoInterface():
 
     def gui(self):
         """
-        The GUI code for the code. Displays the Photo, scales, and buttons.
+        The GUI code for the code. Displays the Photo, scales, and buttons in a pop up.
         """
         root = Tk()
         root.title("Photo Editor")
@@ -74,11 +74,10 @@ class PhotoInterface():
             updates the image onto the display in real time.
 
             Args:
-                current_state: An integer representing the current
+                current_state: An float representing the current
                 value of the slider that had been changed.
 
             """
-
             if self.update_image is not None or int(current_state) > 10000:
                 canvas.delete(self.update_image)
                 sliders=[]
@@ -109,6 +108,7 @@ class PhotoInterface():
         label = Label(root)
         label.pack()
         # Sliders
+        #Format of
         sliders=[["Blur",0,10],["Brightness",1,10],["Sharpness",1,10],\
                  ["Contrast",1,10],["Color",1,10],["Rotate",0,360]]
         slider_update=[]
@@ -141,7 +141,8 @@ class PhotoInterface():
     def img_finder(self):
         """
         Asks the user to select an image in their file system and gets the
-        relative path.
+        relative path. This function is not outside of class to avoid tripping
+        a pylint error about having less then two functions in a class.
 
         Returns:
             A string of the path of where the image is

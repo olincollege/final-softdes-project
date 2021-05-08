@@ -6,7 +6,7 @@ from photo_editor_model import PhotoModel
 
 def main():
     """
-    Open the photo editor
+    Opens the photo editor.
     """
     model = PhotoModel()
     photo = PhotoInterface(model)
