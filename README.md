@@ -7,6 +7,7 @@ We created a photo editing program that allows users to upload a photo, edit it,
 
 ## Installation Instructions
 To use our program, please install the the following in your command line:
+
 [Tkinter Documentation](https://docs.python.org/3/library/tkinter.html)\
 Downloading Tkinter:\
 `pip install tk`
