@@ -36,6 +36,6 @@ Arnav: An Olin Student interested in photography, design, and psychology. [Arnav
 Charlie: An Olin student interested in photography, soccer, and computer science. [Charlie's GitHub Profile](https://github.com/Cbabe)
 
 ## Sources
-[An example photo editor that inspired us!](https://www.codershubb.com/build-a-simple-photo-editor-app-using-python/)
-[PIL Examples and Documentation](https://pillow.readthedocs.io/en/stable/)
+[An example photo editor that inspired us!](https://www.codershubb.com/build-a-simple-photo-editor-app-using-python/)\
+[PIL Examples and Documentation](https://pillow.readthedocs.io/en/stable/)\
 [Tkinter Examples and Documentation](https://docs.python.org/3/library/tkinter.html)
