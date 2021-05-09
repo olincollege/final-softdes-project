@@ -1,12 +1,12 @@
 """
-Program runs the photo editor
+Program runs the photo editor untill user closes.
 """
 from photo_editor_interface import PhotoInterface
 from photo_editor_model import PhotoModel
 
 def main():
     """
-    Opens the photo editor.
+    Creates a photo editor.
     """
     model = PhotoModel()
     photo = PhotoInterface(model)

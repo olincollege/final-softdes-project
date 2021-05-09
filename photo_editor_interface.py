@@ -4,7 +4,9 @@ of the program, showing the GUI and allows the user to control the
 edits of the picture.
 
 This is the view and controller combined, as our implementation with
-tkinter and PIL do not allow for a feasible MVC structure.
+tkinter and PIL do not allow for a feasible MVC structure. For example,
+the scales in tkinter are generated in GUI and output a string of number,
+creating both a view and a control.
 """
 import os
 from tkinter import filedialog, Tk, Canvas, Button, Scale, CENTER, \
@@ -57,7 +59,8 @@ class PhotoInterface():
         def import_button():
             """
             This function runs when the import button is clicked,
-            importing an image and placing it on the display.
+            prompting a file diaglog for the user and then placing this image
+            on the canvas.
             """
             self.image_path = self.img_finder()
             self.model.open_img(self.image_path)
@@ -108,7 +111,7 @@ class PhotoInterface():
         label = Label(root)
         label.pack()
         # Sliders
-        #Format of
+        #Format of Sliders, with values of the range
         sliders=[["Blur",0,10],["Brightness",1,10],["Sharpness",1,10],\
                  ["Contrast",1,10],["Color",1,10],["Rotate",0,360]]
         slider_update=[]
