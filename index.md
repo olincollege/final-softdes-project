@@ -1,5 +1,5 @@
 # Photo Editor
-By: Charlie Babe and Arnav Gupta 
+By: Charlie Babe and Arnav Gupta\
 <img width="113" alt="Photo Editor" src="https://user-images.githubusercontent.com/78317842/117474351-d6aac300-af28-11eb-8f39-dbdc71cfcb1a.png">
 
 ## Summary
