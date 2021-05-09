@@ -2,12 +2,12 @@
 Unit tests for photo editor interface.
 
 We could only unit test our model based on the code structure.
-We can't test our interface functions since all of them would be requiring GUI.
-Testing user interaction would not be possible because the interface is GUI
-based and cannot be tested through the structure of pytest.
-For example testing user interaction testing our export and
+We can't test our interface functions since all of them require user interaction.
+Testing user interaction would not be possible because the interface is GUI-based
+and cannot be tested through the structure of pytest.
+For example, testing user interaction of our export and
 import would create a file dialog popup and while it returns
-a string we can not put any inputs into the function.
+a string we can not put any inputs into the function through the popup.
 """
 from PIL import Image, ImageChops
 from photo_editor_model import PhotoModel
@@ -28,25 +28,25 @@ def test_open_image():
 update_test=[
              # Check to see if image is same, assert True
              [[0,1,1,1,1,0,""],True],\
-             # Check to see image has changed with brightness, assert False
+             # Check to see image has changed with blur, assert False
              [[1,1,1,1,1,0,""],False],\
-             # Check to see image has changed more, assert False
+             # Check to see image has changed with brightness, assert False
              [[0,2,1,1,1,0,""],False],\
-             # Check to see image has changed, assert False
+             # Check to see image has changed with sharpness, assert False
              [[0,1,2,1,1,0,""],False],\
-             # Check to see image has changed, assert False
+             # Check to see image has changed with contrast, assert False
              [[0,1,1,2,1,0,""],False],\
-             # Check to see image has changed, assert False
+             # Check to see image has changed with color, assert False
              [[0,1,1,1,2,0,""],False],\
-             # Check to see image has changed, assert False
+             # Check to see image has changed with rotation, assert False
              [[0,1,1,1,1,1,""],False],\
              # Check to see image has changed with crop box, assert False
              [[0,1,1,1,1,0,"4 4 100 100"],False],
-             # Check to see image is same, assert True
+             # Check to see image is same with spaces for the crop input, assert True
              [[0,1,1,1,1,0,"        "],True],\
-             # Check to see image has changed, assert False
+             # Check to see image has changed with a decimal change in blur, assert False
              [[0.5,1,1,1,1,0,""],False],\
-             # Check to see image has changed, assert False
+             # Check to see image has changed with decimals and negatives, assert False
              [[0.5,6,100,-1,5,-0.6,""],False]]\
 
 def test_update_img():

@@ -4,9 +4,9 @@ of the program, showing the GUI and allows the user to control the
 edits of the picture.
 
 This is the view and controller combined, as our implementation with
-tkinter and PIL do not allow for a feasible MVC structure. For example,
-the scales in tkinter are generated in GUI and output a string of number,
-creating both a view and a control.
+Tkinter and PIL do not allow for a feasible MVC structure. For example,
+the scales in Tkinter are generated in GUI and output a string of numbers,
+creating both a view and control.
 """
 import os
 from tkinter import filedialog, Tk, Canvas, Button, Scale, CENTER, \
@@ -21,13 +21,13 @@ class PhotoInterface():
     Attributes:
         model: An instance of the model class of the photo editor.
         update_image: Current image being displayed.
-        image_path: The path to the image represented by a string.
-        _img_path_string: The private path to the image represented by a string.
+        image_path: The path to the original image represented by a string.
+        _img_path_string: The private path to the original image represented by a string.
 
     Methods:
         __init__: Create a new model for the photo editor,
-        and stores the slider state and path to image.
-        gui: The GUI code for the code. Displays the Photo, scales, and buttons.
+        and stores the slider state and path to the original image.
+        gui: Creates the GUI code for the photo editor. Displays the Photo, scales, and buttons.
         img_finder: Asks the user to select an image in their file system and gets the
         relative path.
     """
@@ -36,8 +36,8 @@ class PhotoInterface():
         Create a new model for the photo editor.
 
         Args:
-            model: A photo editor model instance that contain the photo
-            on the GUI being edited and the orginal photo as well as methods
+            model: A photo editor model instance that contains the photo
+            on the GUI being edited and the original photo as well as methods
             to open and edit the original photo.
         """
         self.model = model
@@ -48,7 +48,8 @@ class PhotoInterface():
 
     def gui(self):
         """
-        The GUI code for the code. Displays the Photo, scales, and buttons in a pop up.
+        Creates the GUI code for the photo editor.
+        Displays the Photo, scales, and buttons in a popup.
         """
         root = Tk()
         root.title("Photo Editor")
@@ -59,8 +60,8 @@ class PhotoInterface():
         def import_button():
             """
             This function runs when the import button is clicked,
-            prompting a file diaglog for the user and then placing this image
-            on the canvas.
+            prompting a file dialog for the user to pick an image
+            and then placing that image on the canvas.
             """
             self.image_path = self.img_finder()
             self.model.open_img(self.image_path)
@@ -73,8 +74,8 @@ class PhotoInterface():
         # User Interaction
         def user_interaction(current_state):
             """
-            This method runs when any of the scales are adjusted. It
-            updates the image onto the display in real time.
+            This function runs when any of the scales are adjusted. It
+            updates the image onto the display in real-time.
 
             Args:
                 current_state: An float representing the current
@@ -145,7 +146,7 @@ class PhotoInterface():
         """
         Asks the user to select an image in their file system and gets the
         relative path. This function is not outside of class to avoid tripping
-        a pylint error about having less then two functions in a class.
+        a pylint error about having less than two functions in a class.
 
         Returns:
             A string of the path of where the image is

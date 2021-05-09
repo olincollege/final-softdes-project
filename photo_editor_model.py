@@ -5,18 +5,18 @@ from PIL import Image, ImageFilter, ImageEnhance
 
 class PhotoModel():
     """
-    Photo editor model stores, opens, and updates the photo.
+    Photo editor model stores, opens, and updates the uploaded photo.
 
     Attributes:
-        img: original img opened from path in Pillow.
-        update_slider: a list of integers for editing the image based on
+        img: Original image opened from the image's path in Pillow.
+        update_slider: A list of integers for editing the image based on
         its index.
-        newimage: the copy of img that is being displayed on the canvas.
+        newimage: The edited image that is being displayed on the canvas.
 
     Methods:
         __init__: Initialize attributes for editing images.
-        open_img: Open an img in Pillow.
-        update_img: Updates the image everytime one of the sliders are
+        open_img: Open an image in Pillow.
+        update_img: Updates the image every time one of the sliders are
         manipulated.
     """
 
@@ -30,15 +30,15 @@ class PhotoModel():
 
     def open_img(self, img_path):
         """
-        Open an img in Pillow.
+        Opens an image in Pillow.
 
         Args:
-            img_path:a string of the image path.
+            img_path: A string of the image path.
         """
         self.img = Image.open(img_path)
     def update_img(self):
         """
-        Updates the image everytime one of the sliders are
+        Updates the image every time one of the sliders are
         manipulated. Reapplies all editing to the original image
         in a consistent order of edits.
         """

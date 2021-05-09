@@ -1,5 +1,5 @@
 """
-Program runs the photo editor untill user closes.
+The program runs the photo editor until the user closes it.
 """
 from photo_editor_interface import PhotoInterface
 from photo_editor_model import PhotoModel
