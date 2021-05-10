@@ -23,7 +23,7 @@ To run the photo editor run `photo_editor_main.py`, this can be done by typing `
 
 ## Demo
 Below is a video of the photo editor and how to use it. 
-[Video Link](https://drive.google.com/file/d/15PqAqpLfl_OqwUtCBB3dQQAjUz26tqTe/view?usp=sharing)
+[Video Link](https://drive.google.com/file/d/1h6TuYCoPe82xPsVL00wVU6H7ee4k8Iq6/view?usp=sharing)
 
 ## Structure
 The photo editor is composed of three files `photo_editor_main.py`, `photo_editor_interface.py`, and `photo_editor_model.py`, and is not made in the traditional Model, View, and Control format. Instead, the file `photo_editor_interface.py` contains both the View and the Control since by using Tkinter Library, the View and Control can not be feasibly separated. The file `photo_editor_model.py` contains the Model and `photo_editor_main.py` runs the photo editor. The file `test_image.jpg` is used for testing purposes through pytest and its path is hardcoded into `test_photo_editor_model`, which is used for unit testing the photo editor.
@@ -32,8 +32,8 @@ The photo editor is composed of three files `photo_editor_main.py`, `photo_edito
 [link to GitHub repository](https://github.com/olincollege/photo-editor)
 
 ## About the Authors
-Arnav: An Olin Student interested in photography, design, and psychology. [Arnav's GitHub Profile](https://github.com/arnavgupta19)\
-Charlie: An Olin student interested in photography, soccer, and computer science. [Charlie's GitHub Profile](https://github.com/Cbabe)
+Arnav: A first year Olin Student interested in photography, design, and psychology. [Arnav's GitHub Profile](https://github.com/arnavgupta19)\
+Charlie: A first year Olin student interested in photography, soccer, and computer science. [Charlie's GitHub Profile](https://github.com/Cbabe)
 
 ## Sources
 [An example photo editor that inspired us!](https://www.codershubb.com/build-a-simple-photo-editor-app-using-python/)\
